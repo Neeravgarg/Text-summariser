@@ -35,30 +35,23 @@ def process():
         with open('questions.txt', 'w') as file:
             pass
         # Generate subjective questions and fill-in-the-blank questions
-        subjective_questions = (generate_subjective_questions(input_text))
-        # fill_ups = generate_fill_in_the_blank(input_text)
+        subjective_questions = generate_subjective_questions(input_text)
         
-        # Step 1: Join the list into a single string
-        joined_string = ''.join(subjective_questions)
+        # Join the list of questions into a string, making sure to format it properly
+        cleaned_questions = []
+        for question in subjective_questions:
+            cleaned_question = question.strip("[]'")  # Remove any unwanted characters
+            cleaned_questions.append(cleaned_question)
 
-        # Step 2: Split the string by '?'
-        sentences = joined_string.split('?')        
-
-        # Step 3: Add '?' back to each sentence and trim whitespace
-        sentences = [sentence.rstrip(',').strip() + '?' for sentence in sentences if sentence.strip()]
-        
+        generated_ques = ''
         # Write the generated questions to a file
         i = 1
-        for ques in sentences:
-
-            with open('questions.txt', 'a') as new:
-                # new.write(questions_content)
+        with open('questions.txt', 'a') as new:
+            for ques in cleaned_questions:
                 new.write(f'Ques {i}. {ques}\n')
-                i+=1
+                generated_ques= generated_ques+(f'Ques {i}. {ques}         ')
+                i += 1
 
-        generated_ques= ''
-        with open('questions.txt','r') as file:
-            generated_ques = file.read()
 
         # return render_template('index.html', content=questions_content)
         return render_template('index.html', content=generated_ques)
