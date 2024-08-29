@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 app = Flask(__name__)
 
 from model import summarize
-from qgen import generate_fill_in_the_blank, generate_subjective_questions
+from qgen import  generate_subjective_questions
 
 @app.route('/')
 def index():
@@ -58,6 +58,14 @@ def process():
 
     # If no valid action was provided, return an error or redirect
     return "Invalid action", 400  # Returning a 400 Bad Request response if the action is invalid
+
+@app.route('/feedback')
+def feedback():
+    return render_template('feedback.html')
+
+@app.route('/home')
+def home():
+    return render_template('index.html',content='')
 
 if __name__ == '__main__':
     app.run(debug=True)

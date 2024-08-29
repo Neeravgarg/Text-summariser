@@ -1,25 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='main.css') }}"
+    />
     {% block head %}{% endblock %}
-</head>
-<body>
+  </head>
+  <body>
     <div class="master">
-        <div class="header"></div>
-        <div class="main">
-            <form action="{{ url_for('process') }}" method="post">
-                <textarea type="text" id="input_text" name="input_text" placeholder="Enter the text" required></textarea>
-                <button type="submit" name="action" value="generate_summary" class="button summary">Generate summary</button>
-                <button type="submit" name="action" value="generate_questions" class="button pdf">Generate questions</button>
-            </form>
-            <div class="output">{% block body %}{{ content }}{% endblock %}</div>
-        </div>
+      <div class="header">
+        <h1>TextSynth</h1>
+        <a href="{{ url_for('feedback')}}" class="feed">feedback</a>
+      </div>
+      <div class="main">
+        <form action="{{ url_for('process') }}" method="post">
+          <textarea
+            type="text"
+            id="input_text"
+            name="input_text"
+            placeholder="Enter the text"
+            required
+          ></textarea>
+          <button
+            type="submit"
+            name="action"
+            value="generate_summary"
+            class="button summary"
+          >
+            Generate summary
+          </button>
+          <button
+            type="submit"
+            name="action"
+            value="generate_questions"
+            class="button pdf"
+          >
+            Generate questions
+          </button>
+        </form>
+        <div class="output">{% block body %}{{ content }}{% endblock %}</div>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
-
