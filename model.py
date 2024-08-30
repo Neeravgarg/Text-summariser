@@ -13,6 +13,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
 from scipy.sparse.linalg import svds
 # print('imported sematic analysis')
 
+import torch
 # Bert Summarizer model
 from summarizer import Summarizer
 # print('imported bert')
@@ -29,8 +30,11 @@ def summarize(text):
     # with open('file.txt', 'r') as file:
     #     text = file.read()
     
-
-    # print(text)
+    # if mtext == False:
+    #     text = jtext
+    # elif jtext == False:
+    #     text = mtext
+    # # print(text)
 
 
     # Removing new line characters and double spaces and then rejoining the rest of the text
@@ -123,12 +127,13 @@ def summarize(text):
 
     result = Summarizer()(text, min_length = 50)
     summary_bert = ''.join(result)
-    print(summary_bert)
 
     # Writing the summary in 'summary.txt' file
     f_summary = open("summary.txt", "a")
     f_summary.write(summary_bert)
     f_summary.close()
+
+    return 'checking'
 
 if __name__ == '__main__':
     summarize()
